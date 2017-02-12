@@ -1,0 +1,27 @@
+
+<div class="sign-up-block">
+  <form id="signUp" name="vm.signupForm" ng-submit="vm.signup()" novalidate="novalidate">
+    <h2 class="form-signup-heading">Please welcome!</h2>
+    <div class="signupErrors">
+      <div ng-show="vm.signupForm.email.$dirty" ng-messages="vm.signupForm.email.$error">
+        <p ng-message="required" class="text-danger">Field is required</p>
+        <p ng-message="email" class="text-danger">Wrong email format</p>
+      </div>
+      <div ng-show="vm.signupForm.password.$dirty" ng-messages="vm.signupForm.password.$error">
+        <p ng-message="required" class="text-danger">Field is required</p>
+        <p ng-message="password" class="text-danger">Wrong password format</p>
+      </div>
+      <div ng-show="vm.signupForm.pconfirm.$dirty" ng-messages="vm.signupForm.pconfirm.$error">
+        <p ng-message="required" class="text-danger">Field is required</p>
+        <p ng-message="pwdmatch" class="text-danger">Wrong, passwords must be equal     </p>
+      </div>
+    </div>
+    <label for="inpEmail">Email address</label>
+    <input ng-model="vm.data.email" ng-required="true" type="email" id="inpEmail" name="email" placeholder="Your Email" class="form-control"/>
+    <label for="inpPass">Password</label>
+    <input ng-model="vm.data.password" ng-required="true" type="password" id="inpPass" name="password" placeholder="Your Password" class="form-control"/>
+    <label for="inpPass2">Password Confirm</label>
+    <input ng-model="vm.data.passConf" ng-required="true" pwd-dir="vm.data.password" type="password" id="inpPassConf" name="pconfirm" placeholder="Your Password Again" class="form-control"/>
+    <button type="submit" class="btn btn-lg btn-primary btn-block">Sign Up Me</button>
+  </form>
+</div>

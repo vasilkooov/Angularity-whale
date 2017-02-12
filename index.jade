@@ -1,0 +1,41 @@
+doctype html
+html(lang='ua')
+head
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(http-equiv='content-type', content='text/html', charset='utf-8')
+    title Hi whale
+    link(rel="shortcut icon" href="favicon.png" type="image/png")
+    link(link href="public/css/main.css" rel="stylesheet")  
+
+    link(rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css")
+
+    script(src="node_modules/angular/angular.js" type='text/javascript')
+    script(src="node_modules/angular-route/angular-route.js" type='text/javascript')
+    script(src="node_modules/angular-messages/angular-messages.js" type='text/javascript')
+    script(src="node_modules/angular-md5/angular-md5.js" type='text/javascript')
+
+body(ng-app="whaleApp")
+    .container(ng-controller="mainCtrl as main")
+        .row
+            .col-sm-12
+        .row.buttons
+            .col-sm-4
+                a.btn.btn-md.btn-block.sign-up(href="#!/signup")
+                    span SignUp Btn
+
+            .col-sm-4
+                a.btn.btn-md.btn-block.log-in(href="#!/login")
+                    span LogIn Btn
+
+            .col-sm-4
+                a.btn.btn-md.btn-block.search(href="#!/search")
+                    span Search Btn  
+
+        .row
+            .col-sm-3
+            .col-sm-6(ng-view)
+      
+    script(src='public/js/app.js' type='text/javascript')
+
+
+

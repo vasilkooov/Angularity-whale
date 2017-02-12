@@ -1,0 +1,22 @@
+.login-block   
+    form.form-signup( action="/" id="LoginIn" novalidate)
+        h2.form-signup-heading Please welcome!
+
+
+        label(for="inpEmail" class="sr-only") Email address
+
+        input(ng-model="uEmail" type="email" id="inpEmail" name="inpEmail" class="form-control" placeholder="Your Email" required="")
+
+
+        label(for="inpPass" class="sr-only") Password
+
+        input(ng-model="uPassword" type="password" id="inpPass" name="inpPass" class="form-control" placeholder="Your Password" required="")
+
+
+        .checkbox
+            label
+            input(type="checkbox" value="remember-me") 
+            | Remember me
+
+        button.btn.btn-lg.btn-primary.align-items-end.btn-block(ng-click="submit()" type="submit") LogIn
+

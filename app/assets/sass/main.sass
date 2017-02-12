@@ -1,0 +1,112 @@
+
+// ----custom set
+*, ::before, ::after
+	margin: 0
+	padding: 0
+	box-sizing: border-box
+
+::before, ::after
+	content: ""
+	z-index: 0
+
+ul
+	position: relative
+	list-style: none
+	margin: 0
+
+body
+	font: 14px/16px , sans-serif
+	font-family: 'Open Sans', sans-serif
+	font-weight: 400
+	min-width: 320px
+
+.clear
+	clear: both
+a
+	text-decoration: none
+	color: #3498db
+	transition: all .3s ease-out
+
+a,button,select,input
+	&:hover
+		cursor: pointer
+	&:focus,:active
+		outline: none	
+
+input,textarea
+	transition: all .2s ease-out
+	&:focus::-webkit-input-placeholder
+		color: transparent
+
+	
+// Fonts
+
+
+// Fonts end
+
+//----- end set
+
+
+
+// --- Main container
+
+.container
+	width: 100%
+	height: auto
+	position: relative
+	overflow: hidden
+	margin-top: 1vh
+	padding: 0em 0 3em 
+
+	background:
+		color: #ecf0f1
+	padding-bottom: 200px
+	border-radius: 5px
+	box-shadow: 0px 3px 5px 1px rgba(0,0,0,.3)	
+	z-index: 1
+
+.buttons
+	position: relative
+	margin-top: 12vh
+
+.sign-up,.log-in,.search
+	background-color: #27ae60
+	transition: all .2s ease-out
+	&:hover 
+		background-color: #2ecc71
+
+	span	
+		display: block
+		width: 100%
+		height: 100%
+		color: #fff
+		text-shadow: 1px 1px 2px rgba(0,0,0,.2)
+		&:hover
+			cursor: pointer
+			text-shadow: 1px 1px 2px rgba(0,0,0,.3)
+
+form.sign-form input.form-control
+	margin-bottom: 10px
+
+input.ng-touched.ng-invalid
+	border: 2px solid red
+input.ng-valid
+	border: 2px solid green
+
+.log-in
+	background-color: #16a085
+	&:hover 
+		background-color: #1abc9c
+.search
+	background-color: #2980b9
+	&:hover 
+		background-color: #3498db
+
+.btn-block
+	margin-top: 1em
+
+
+
+
+
+
