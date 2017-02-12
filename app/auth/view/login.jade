@@ -1,23 +1,21 @@
-.login-block   
-    form.form-signup( action="/" id="LoginIn" novalidate)
+.login-block
+    form.form-signup(id="LoginIn" name="vm.loginForm" novalidate)
         h2.form-signup-heading Log In
         h4.form-signup-heading Please Welcome!
 
+        p(ng-show="vm.loginForm.email.$error.authError") LOL! Try again!
 
-        label(for="inpEmail" class="sr-only") Email address
+        label(for="inpEmail" class="") Email
+        input(ng-model="vm.data.email" ng-required="true" type="email" id="inpEmail" name="email" class="form-control" placeholder="Your Email" )
 
-        input(ng-model="uEmail" type="email" id="inpEmail" name="inpEmail" class="form-control" placeholder="Your Email" required="")
-
-
-        label(for="inpPass" class="sr-only") Password
-
-        input(ng-model="uPassword" type="password" id="inpPass" name="inpPass" class="form-control" placeholder="Your Password" required="")
+        label(for="inpPass" class="") Password
+        input(ng-model="vm.data.password" ng-required="true" type="password" id="inpPass" name="password" class="form-control" placeholder="Your Password")
 
 
         .checkbox
             label
-            input(type="checkbox" value="remember-me") 
+            input(type="checkbox" value="remember-me")
             | Remember me
 
-        button.btn.btn-lg.btn-primary.align-items-end.btn-block(ng-click="submit()" type="submit") LogIn
+        button.btn.btn-lg.btn-primary.align-items-end.btn-block(ng-click="vm.login()") LogIn
 

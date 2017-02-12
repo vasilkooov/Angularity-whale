@@ -2,7 +2,8 @@
     form(id="signUp" name="vm.signupForm" ng-submit="vm.signup()" novalidate)
         h2.form-signup-heading Sig Up Page
         h4.form-signup-heading Please Welcome!
-        
+
+
         div.signupErrors
             div(ng-show="vm.signupForm.email.$dirty" ng-messages="vm.signupForm.email.$error")
                 p(class="text-danger" ng-message="required") Field is required
@@ -16,7 +17,7 @@
                 p(class="text-danger" ng-message="required") Field is required
                 p(class="text-danger" ng-message="pwdmatch") Wrong, passwords must be equal     
         
-        label(for="inpEmail" class="") Email address
+        label(for="inpEmail" class="") Email
         input(ng-model="vm.data.email" ng-required="true" type="email" id="inpEmail" name="email" class="form-control" placeholder="Your Email" )
 
         label(for="inpPass" class="") Password

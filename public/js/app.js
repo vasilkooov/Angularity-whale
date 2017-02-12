@@ -2,8 +2,10 @@
 
 angular
     .module('whaleApp', ['ngRoute', 'ngMessages', 'angular-md5'])
-    .config(Configure);
-
+    .config(Configure)
+	.run(function($rootScope) {
+		$rootScope.inClub = false;
+	});
 Configure.$inject = ['$routeProvider'];
 function Configure($routeProvider) {
 	$routeProvider
@@ -22,55 +24,13 @@ function Configure($routeProvider) {
 		controllerAs: 'vm'
 	})
 	.when('/search', {
-		templateUrl: 'public/html/auth/view/search.html',
+		templateUrl: 'public/html/search/view/search.html',
 		controller: 'searchCtrl',
 		controllerAs: 'vm'
 	})
 	.otherwise({
 		redirectTo: '/'
 	});
-}
-
-angular
-	.module('whaleApp')
-	.controller('loginCtrl', LoginController);
-
-LoginController.$inject = ['$scope', '$location'];
-function LoginController($scope, $location) {
-	
-}
-
-angular
-	.module('whaleApp')
-	.controller('signupCtrl', SignupController);
-
-SignupController.$inject = ['storageSvc', 'md5'];
-function SignupController(storageSvc, md5) {
-
-	var vm = this;
-	vm.data = {};
-	vm.users = [];
-	
-	vm.signup = function() {
-		var user = angular.copy(vm.data);
-
-		
-		user.password = md5.createHash(user.password);
-		delete user.passConf;
-		
-		vm.users.push(user);
-		storageSvc.setLocal('users', vm.users);
-
-		/// redirect to ...
-
-
-	};
-
-	init();
-
-	function init() {
-		vm.users = storageSvc.getLocal('users') || [];
-	}
 }
 
 angular
@@ -111,6 +71,73 @@ function storageSvc() {
     };
 
 }
+angular
+	.module('whaleApp')
+	.controller('loginCtrl', LoginController);
+	
+LoginController.$inject = ['$location','md5', '$rootScope', 'storageSvc'];
+
+function LoginController($location, md5, $rootScope, storageSvc) {
+
+	var vm = this;
+	vm.data = {};
+
+	vm.login = function () {
+
+		var loggedUser = vm.users.filter(function (value) {
+			return value.email == vm.data.email
+		});
+
+		if (loggedUser.length > 0 && loggedUser[0].password == md5.createHash(vm.data.password)) {
+			$rootScope.inClub = true;
+			vm.loginForm.$setPristine();
+			$location.path("/search");
+			return;
+		}
+
+		vm.loginForm.email.$setValidity("authError",false);
+	};
+
+
+	init();
+
+	function init() {
+		vm.users = storageSvc.getLocal('users') || [];
+	}
+}
+angular
+	.module('whaleApp')
+	.controller('signupCtrl', SignupController);
+
+SignupController.$inject = ['storageSvc', 'md5', '$location', '$rootScope'];
+function SignupController(storageSvc, md5, $location, $rootScope) {
+
+	var vm = this;
+	vm.data = {};
+	vm.users = [];
+
+	vm.signup = function() {
+		var user = angular.copy(vm.data);
+		
+		user.password = md5.createHash(user.password);
+		delete user.passConf;
+		
+		vm.users.push(user);
+		storageSvc.setLocal('users', vm.users);
+		
+		$rootScope.inClub = true;
+		
+		/// redirect to ...
+		$location.path("/search");
+	};
+
+	init();
+
+	function init() {
+		vm.users = storageSvc.getLocal('users') || [];
+	}
+}
+
 
 angular
     .module('whaleApp')
@@ -136,18 +163,9 @@ angular
 	.module('whaleApp')
 	.controller('searchCtrl', SearchController);
 
-SearchController.$inject = ['$window', 'loginSrv'];
+SearchController.$inject = [];
 
-function SearchController($window, loginSrv) {
-	/* jshint validthis:true */
-	var vm = this;
-	vm.validateUser = function () {
-		loginSrv.validateLogin(vm.username, vm.password).then(function (data) {
-			if (data.isValidUser) {
-				$window.location.href = '/index.html';
-			}
-			else
-				alert('Login incorrect');
-		});
-	}
+function SearchController() {
+
+
 }

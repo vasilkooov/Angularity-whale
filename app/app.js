@@ -2,8 +2,10 @@
 
 angular
     .module('whaleApp', ['ngRoute', 'ngMessages', 'angular-md5'])
-    .config(Configure);
-
+    .config(Configure)
+	.run(function($rootScope) {
+		$rootScope.inClub = false;
+	});
 Configure.$inject = ['$routeProvider'];
 function Configure($routeProvider) {
 	$routeProvider
@@ -22,7 +24,7 @@ function Configure($routeProvider) {
 		controllerAs: 'vm'
 	})
 	.when('/search', {
-		templateUrl: 'public/html/auth/view/search.html',
+		templateUrl: 'public/html/search/view/search.html',
 		controller: 'searchCtrl',
 		controllerAs: 'vm'
 	})
