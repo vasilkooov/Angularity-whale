@@ -50,6 +50,14 @@ input, textarea {
   box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.3);
   z-index: 1; }
 
+.good-msg {
+  margin-top: 1em;
+  text-align: center;
+  color: #3e8f3e; }
+
+.form-signup-heading {
+  text-align: center; }
+
 .buttons {
   position: relative;
   margin-top: 12vh; }

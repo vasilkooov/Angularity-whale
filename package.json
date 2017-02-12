@@ -6,6 +6,7 @@
   "dependencies": {
     "angular": "^1.6.1",
     "angular-md5": "^0.1.10",
+    "angular-messages": "^1.6.2",
     "angular-route": "^1.6.1",
     "bootstrap": "^3.3.7",
     "del": "^2.2.2",

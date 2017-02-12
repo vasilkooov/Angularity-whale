@@ -9,6 +9,7 @@ function Configure($routeProvider) {
 	$routeProvider
 	.when('/', {
 		templateUrl: 'public/html/main/view/main.html',
+		
 	})
 	.when('/login', {
 		templateUrl: 'public/html/auth/view/login.html',
@@ -18,6 +19,11 @@ function Configure($routeProvider) {
 	.when('/signup', {
 		templateUrl: 'public/html/auth/view/signup.html',
 		controller: 'signupCtrl',
+		controllerAs: 'vm'
+	})
+	.when('/search', {
+		templateUrl: 'public/html/auth/view/search.html',
+		controller: 'searchCtrl',
 		controllerAs: 'vm'
 	})
 	.otherwise({
@@ -31,13 +37,7 @@ angular
 
 LoginController.$inject = ['$scope', '$location'];
 function LoginController($scope, $location) {
-	$scope.submit = function() {
-		var uEmail = $scope.uEmail;
-		var uPassword = $scope.uPassword;
-		if($scope.uEmail == 'a@gmail' && $scope.uPassword == '1231') {
-			$location.path('/dashboard');
-		}
-	};
+	
 }
 
 angular
@@ -50,21 +50,26 @@ function SignupController(storageSvc, md5) {
 	var vm = this;
 	vm.data = {};
 	vm.users = [];
-
+	
 	vm.signup = function() {
 		var user = angular.copy(vm.data);
 
+		
 		user.password = md5.createHash(user.password);
+		delete user.passConf;
+		
 		vm.users.push(user);
 		storageSvc.setLocal('users', vm.users);
 
 		/// redirect to ...
+
+
 	};
 
 	init();
 
 	function init() {
-		vm.users = storageSvc.getLocal('users');
+		vm.users = storageSvc.getLocal('users') || [];
 	}
 }
 
@@ -126,3 +131,23 @@ function MainController($rootScope, $location) {
         });
     }
 };
+
+angular
+	.module('whaleApp')
+	.controller('searchCtrl', SearchController);
+
+SearchController.$inject = ['$window', 'loginSrv'];
+
+function SearchController($window, loginSrv) {
+	/* jshint validthis:true */
+	var vm = this;
+	vm.validateUser = function () {
+		loginSrv.validateLogin(vm.username, vm.password).then(function (data) {
+			if (data.isValidUser) {
+				$window.location.href = '/index.html';
+			}
+			else
+				alert('Login incorrect');
+		});
+	}
+}

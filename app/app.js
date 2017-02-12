@@ -9,6 +9,7 @@ function Configure($routeProvider) {
 	$routeProvider
 	.when('/', {
 		templateUrl: 'public/html/main/view/main.html',
+		
 	})
 	.when('/login', {
 		templateUrl: 'public/html/auth/view/login.html',
@@ -18,6 +19,11 @@ function Configure($routeProvider) {
 	.when('/signup', {
 		templateUrl: 'public/html/auth/view/signup.html',
 		controller: 'signupCtrl',
+		controllerAs: 'vm'
+	})
+	.when('/search', {
+		templateUrl: 'public/html/auth/view/search.html',
+		controller: 'searchCtrl',
 		controllerAs: 'vm'
 	})
 	.otherwise({
