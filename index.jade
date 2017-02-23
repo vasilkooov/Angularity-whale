@@ -28,9 +28,8 @@ body(ng-app="whaleApp")
                     span LogIn Btn
 
             .col-sm-4
-                a.btn.btn-md.btn-block.search(href="#!/search")
+                a.btn.btn-md.btn-block.search(href="#!/search" ng-disabled="!inClub")
                     span Search Btn  
-
         .row
             .col-sm-3
             .col-sm-6(ng-view)

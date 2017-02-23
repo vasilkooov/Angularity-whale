@@ -4,7 +4,9 @@ angular
     .module('whaleApp', ['ngRoute', 'ngMessages', 'angular-md5'])
     .config(Configure)
 	.run(function($rootScope) {
-		$rootScope.inClub = false;
+		// vremenno = true
+		$rootScope.inClub = true;
+
 	});
 Configure.$inject = ['$routeProvider'];
 function Configure($routeProvider) {
@@ -33,44 +35,6 @@ function Configure($routeProvider) {
 	});
 }
 
-angular
-    .module('whaleApp')
-    .directive('pwdDir', pwdDir);
-
-function pwdDir() {
-    return {
-        require: 'ngModel',
-        link: function (scope, elem, attrs, ctrl) {
-
-            var me = attrs.ngModel;
-            var matchTo = attrs.pwdDir;
-
-            scope.$watchGroup([me, matchTo], function(value) {
-                ctrl.$setValidity('pwdmatch', value[0] === value[1]);
-            });
-
-        }
-    };
-}
-angular
-    .module('whaleApp')
-    .service('storageSvc', storageSvc);
-
-function storageSvc() {
-
-    var self = this;
-
-    self.getLocal = function(key) {
-        var item = localStorage.getItem(key);
-        return (item ? JSON.parse(item) : null);
-    };
-
-    self.setLocal = function(key, item) {
-        localStorage.setItem(key, JSON.stringify(item));
-        return self;
-    };
-
-}
 angular
 	.module('whaleApp')
 	.controller('loginCtrl', LoginController);
@@ -138,6 +102,44 @@ function SignupController(storageSvc, md5, $location, $rootScope) {
 	}
 }
 
+angular
+    .module('whaleApp')
+    .directive('pwdDir', pwdDir);
+
+function pwdDir() {
+    return {
+        require: 'ngModel',
+        link: function (scope, elem, attrs, ctrl) {
+
+            var me = attrs.ngModel;
+            var matchTo = attrs.pwdDir;
+
+            scope.$watchGroup([me, matchTo], function(value) {
+                ctrl.$setValidity('pwdmatch', value[0] === value[1]);
+            });
+
+        }
+    };
+}
+angular
+    .module('whaleApp')
+    .service('storageSvc', storageSvc);
+
+function storageSvc() {
+
+    var self = this;
+
+    self.getLocal = function(key) {
+        var item = localStorage.getItem(key);
+        return (item ? JSON.parse(item) : null);
+    };
+
+    self.setLocal = function(key, item) {
+        localStorage.setItem(key, JSON.stringify(item));
+        return self;
+    };
+
+}
 
 angular
     .module('whaleApp')
@@ -163,9 +165,33 @@ angular
 	.module('whaleApp')
 	.controller('searchCtrl', SearchController);
 
-SearchController.$inject = [];
+SearchController.$inject = ['$rootScope', '$location', 'storageSvc', '$http'];
 
-function SearchController() {
+function SearchController($rootScope, $location, storageSvc, $http) {
 
+	var vm = this;
+	vm.list = [];
+	vm.name = '';
+	init();
+
+	function init() {
+		if($rootScope.inClub === false){
+			$location.path("/login");
+		}
+
+		vm.list = storageSvc.getLocal('items');
+console.log(vm.list);
+		if (vm.list === null) {
+			$http.get('app/assets/items.json').then(function(response) {
+		        vm.list = response.data;
+		        storageSvc.setLocal('items', vm.list);
+		    }, function (err) {
+		    	console.error(err);
+		    });
+		}
+
+	}
 
 }
+
+

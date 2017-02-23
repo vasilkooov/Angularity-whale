@@ -1,1 +1,43 @@
-h1.good-msg Hello, Bomjara! i loh !
+h1.good-msg Welcome, it's Search Page!
+
+.row
+	.col-sm-12.filter-block
+		.col-sm-4.from-block
+			p From 
+				.from
+					input(type="text")
+					button
+
+		.col-sm-4.to-block
+			p To 
+				.to
+					input(type="text")
+					button
+		.col-sm-4.stack-block
+			p
+				input(type="checkbox")
+				span In stock only	
+
+.row
+	.col-sm-4
+		span Price from
+		input(type="text")
+	.col-sm-4
+		span to
+		input(type="text")
+	.col-sm-4
+		span Color
+		select
+			option loh
+			option shnicel	
+hr
+
+input(ng-model="vm.name")
+span {{vm.name}}
+.row
+	.col-sm-12
+		h2 List
+	.col-sm-12
+		ul
+			li(ng-repeat="item in vm.list | filter : vm.name")
+				span {{item.name}}

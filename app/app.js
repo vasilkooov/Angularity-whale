@@ -4,7 +4,9 @@ angular
     .module('whaleApp', ['ngRoute', 'ngMessages', 'angular-md5'])
     .config(Configure)
 	.run(function($rootScope) {
-		$rootScope.inClub = false;
+		// vremenno = true
+		$rootScope.inClub = true;
+
 	});
 Configure.$inject = ['$routeProvider'];
 function Configure($routeProvider) {
